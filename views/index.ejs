@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SSR Clock</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="card">
+    <h1>Clocks</h1>
+
+    <div class="clocks">
+      <div class="clock">
+        <h2>US (<%= tzUS %>)</h2>
+        <div id="usTime" class="time"><%= serverTimeUS %></div>
+      </div>
+      <div class="clock">
+        <h2>India (<%= tzIndia %>)</h2>
+        <div id="indiaTime" class="time"><%= serverTimeIndia %></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function(){
+      const tzUS = '<%= tzUS %>', tzIndia = '<%= tzIndia %>';
+      const usEl = document.getElementById('usTime');
+      const inEl = document.getElementById('indiaTime');
+
+      const usFmt = new Intl.DateTimeFormat('en-US',{timeZone:tzUS,hour:'2-digit',minute:'2-digit',second:'2-digit',weekday:'short',year:'numeric',month:'short',day:'2-digit'});
+      const inFmt = new Intl.DateTimeFormat('en-US',{timeZone:tzIndia,hour:'2-digit',minute:'2-digit',second:'2-digit',weekday:'short',year:'numeric',month:'short',day:'2-digit'});
+
+      function tick(){
+        const now=new Date();
+        usEl.textContent=usFmt.format(now);
+        inEl.textContent=inFmt.format(now);
+      }
+      setInterval(tick,1000);
+      tick();
+    })();
+  </script>
+</body>
+</html>
