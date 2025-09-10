@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Source the nvm environment
 source ~/.nvm/nvm.sh || true
 nvm use default || true
 
