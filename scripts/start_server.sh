@@ -1,7 +1,13 @@
 #!/bin/bash
-# Navigate to the app's directory on the server
+
+# Source the nvm environment
+source ~/.nvm/nvm.sh || true
+nvm use default || true
+
+# Navigate to the app directory
+echo "Navigating to app directory..."
 cd /var/www/my-nestjs-app
 
-# Start or restart the application with PM2 using the ecosystem file
+# Start the application with PM2
 echo "Starting the application with PM2..."
-pm2 startOrRestart ecosystem.pm2.js --env production
+pm2 startOrRestart ecosystem.config.js --env production
