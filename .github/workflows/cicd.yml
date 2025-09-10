@@ -41,7 +41,7 @@ jobs:
           zip -r deployment-artifact.zip . -x "*.git/*" "node_modules/*"
 
       - name: Upload artifact to S3
-        run: aws s3 cp deployment-artifact.zip s3://{{ secrets.S3_BUCKET }}/${{ github.sha }}.zip
+        run: aws s3 cp deployment-artifact.zip s3://${{ secrets.S3_BUCKET }}/${{ github.sha }}.zip
 
       - name: Create CodeDeploy Deployment
         run: |
