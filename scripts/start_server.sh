@@ -9,4 +9,4 @@ cd /var/www/my-nestjs-app
 
 # Start the application with PM2
 echo "Starting the application with PM2..."
-pm2 startOrRestart ecosystem.pm2.js --env production
+pm2 stop ecosystem.pm2.js && pm2 start ecosystem.pm2.js 
