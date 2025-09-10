@@ -27,7 +27,7 @@ jobs:
       - name: Run test
         run: npm run test & npm run test:e2e
        
-      - name: Build NestJS application
+      - name: Build Application
         run: npm run build
 
       - name: Configure AWS credentials
