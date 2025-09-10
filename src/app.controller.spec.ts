@@ -1,22 +1,27 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 
 describe('AppController', () => {
   let appController: AppController;
 
   beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
+    const module: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
     }).compile();
 
-    appController = app.get<AppController>(AppController);
+    appController = module.get<AppController>(AppController);
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
-    });
+  it('should return server-side rendered times with timezones', () => {
+    const result = appController.root();
+
+    expect(result).toHaveProperty('serverTimeIndia');
+    expect(result).toHaveProperty('serverTimeUS');
+    expect(result).toHaveProperty('tzIndia', 'Asia/Kolkata');
+    expect(result).toHaveProperty('tzUS', 'America/New_York');
+
+    // make sure values are strings
+    expect(typeof result.serverTimeIndia).toBe('string');
+    expect(typeof result.serverTimeUS).toBe('string');
   });
 });
