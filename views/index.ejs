@@ -2,20 +2,30 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>World Time for Kolkata and Newyork</title>
+  <title>World Time: Kolkata and New York</title>
   <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <main class="card">
-    <h1>Clocks</h1>
-    <div class="clocks">
-      <div class="clock">
-        <h2>US Time</h2>
-        <p><%= serverTimeUS %></p>
+  <main class="container">
+    <header class="header">
+      <h1>Global Clocks</h1>
+      <p>Real-time updates for key locations.</p>
+    </header>
+    <div class="clocks-grid">
+      <div class="clock-card">
+        <h2 class="city-name">New York</h2>
+        <div class="clock-display">
+          <p class="time-main" id="us-time"><%= serverTimeUS %></p>
+          <span class="seconds" id="us-seconds"></span>
+        </div>
       </div>
-      <div class="clock">
-        <h2>India Time</h2>
-        <p><%= serverTimeIndia %></p>
+      <div class="clock-card">
+        <h2 class="city-name">Kolkata</h2>
+        <div class="clock-display">
+          <p class="time-main" id="india-time"><%= serverTimeIndia %></p>
+          <span class="seconds" id="india-seconds"></span>
+        </div>
       </div>
     </div>
   </main>
@@ -25,8 +35,14 @@
 
   eventSource.onmessage = function(event) {
     const data = JSON.parse(event.data);
-    document.querySelector('.clock:nth-child(1) p').textContent = data.serverTimeUS;
-    document.querySelector('.clock:nth-child(2) p').textContent = data.serverTimeIndia;
+    
+    // Update main time (hours:minutes)
+    document.getElementById('us-time').textContent = data.serverTimeUS.slice(0, 5);
+    document.getElementById('india-time').textContent = data.serverTimeIndia.slice(0, 5);
+
+    // Update seconds
+    document.getElementById('us-seconds').textContent = data.serverTimeUS.slice(6, 8);
+    document.getElementById('india-seconds').textContent = data.serverTimeIndia.slice(6, 8);
   };
 
   eventSource.onerror = function(err) {
@@ -34,5 +50,4 @@
     eventSource.close();
   };
 </script>
-
 </html>
