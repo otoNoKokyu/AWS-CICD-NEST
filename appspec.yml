@@ -5,7 +5,6 @@ files:
     destination: /var/www/my-nestjs-app
 
 hooks:
-  ApplicationStop:
   AfterInstall:
     - location: scripts/install_and_build.sh
       timeout: 300
