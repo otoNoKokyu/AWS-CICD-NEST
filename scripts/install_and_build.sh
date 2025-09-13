@@ -11,7 +11,3 @@ cd /var/www/my-nestjs-app
 # Install Node.js dependencies
 echo "Installing Node.js dependencies..."
 npm install
-
-# Build NestJS application
-echo "Building NestJS application..."
-npm run build
