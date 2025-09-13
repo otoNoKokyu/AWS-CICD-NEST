@@ -38,7 +38,7 @@ jobs:
 
       - name: Zip application files for CodeDeploy
         run: |
-            zip -r deployment-artifact.zip dist/ package.json package-lock.json ecosystem.pm2.js
+            zip -r deployment-artifact.zip appspec.yml dist/ package.json ecosystem.pm2.js
 
       - name: Upload artifact to S3
         run: aws s3 cp deployment-artifact.zip s3://${{ secrets.S3_BUCKET }}/${{ github.sha }}.zip
